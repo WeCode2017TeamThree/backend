@@ -60,6 +60,7 @@ class Location(Document):
     """
     name = fields.StringField()
     description = fields.StringField()
+    address = fieds.StringField()
     lat = fields.StringField()
     lng = fields.StringField()
     submitted_by = fields.StringField()
@@ -77,6 +78,7 @@ class Location(Document):
         return dict(
             name=self.name,
             description=self.description,
+            address=self.address,
             lat=self.lat,
             lng=self.lng,
             submitted_by=self.submitted_by,
