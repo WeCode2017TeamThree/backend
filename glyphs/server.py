@@ -10,6 +10,7 @@ from klein import Klein
 from twisted.internet import defer
 
 from glyphs.location import Location, Comment, Rating
+
 from twisted.web.static import File
 
 
@@ -37,11 +38,15 @@ class Server(object):
     """
     app = Klein()
 
-    @app.route('/')
-    def home(self, request):
-        """
-        """
-        return File('./public')
+    @app.route('/', branch=True)
+    def static(self, request):
+        return File('./')
+
+    # @app.route('/')
+    # def home(self, request):
+    #     """
+    #     """
+    #     return File('./index.html')
 
     @app.route("/api/v1/locations")
     @jsonAPI
