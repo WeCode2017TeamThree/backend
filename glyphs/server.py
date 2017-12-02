@@ -72,7 +72,6 @@ class Server(object):
     def addFeature(self, request, id):
         """
         """
-        import pdb; pdb.set_trace()
         data = request.payload['feature']
         c = Comment(**data)
         loc = Location.objects(id=id).first()
