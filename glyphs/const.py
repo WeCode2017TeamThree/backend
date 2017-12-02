@@ -5,6 +5,5 @@ import os
 # mongo connect strings
 GLYPHS_DB = 'glyphs'
 DB_ALIAS_DEFAULT = 'default'
-MONGO_HOST = os.environ.get('MONGO_URL', 'localhost')
-_DB_CONNECT_STRING = 'mongodb://%s/' % MONGO_HOST
-GLYPHS_DB_CONNECT = _DB_CONNECT_STRING + GLYPHS_DB
+_DB_CONNECT_STRING = 'mongodb://localhost/' + GLYPHS_DB
+GLYPHS_DB_CONNECT = os.environ.get('MONGODB_URI', _DB_CONNECT_STRING)
