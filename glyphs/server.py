@@ -10,6 +10,7 @@ from klein import Klein
 from twisted.internet import defer
 
 from glyphs.location import Location, Comment, Rating
+from twisted.web.static import File
 
 
 ENV = Environment(loader=FileSystemLoader('public'))
@@ -40,7 +41,7 @@ class Server(object):
     def home(self, request):
         """
         """
-        return ENV.get_template("index.html").render()
+        return File('./public')
 
     @app.route("/api/v1/locations")
     @jsonAPI
