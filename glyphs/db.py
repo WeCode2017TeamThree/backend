@@ -1,7 +1,6 @@
 """
 """
 from contextlib import contextmanager
-import os
 import sys
 
 from mongoengine import register_connection

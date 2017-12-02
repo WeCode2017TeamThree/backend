@@ -18,7 +18,7 @@ from glyphs.server import Server
 
 LOG_DIR = './http'
 LOG_PATH = '%s/http-requests.log' % LOG_DIR
-DEFAULT_PORT = int(os.environ["PORT"]) or 8080
+DEFAULT_PORT = int(os.environ.get("PORT")) if os.environ.get("PORT") else 8080
 
 
 class Run(Main):

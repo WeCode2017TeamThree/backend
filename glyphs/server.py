@@ -3,13 +3,16 @@
 from functools import wraps
 import json
 
+from jinja2 import Environment, FileSystemLoader
+
 from klein import Klein
 
 from twisted.internet import defer
-from twisted.web.resource import Resource
-from twisted.web.static import File
 
 from glyphs.location import Location
+
+
+ENV = Environment(loader=FileSystemLoader('public'))
 
 
 def jsonAPI(f):
@@ -37,11 +40,7 @@ class Server(object):
     def home(self, request):
         """
         """
-        f = File("public/index.html")
-        f.type, f.encoding = 'text/plain', None
-        r = Resource()
-        r.putChild(b"", f)
-        return r
+        return ENV.get_template("index.html").render()
 
     @app.route("/api/v1/locations")
     @jsonAPI
