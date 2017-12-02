@@ -9,7 +9,7 @@ from klein import Klein
 
 from twisted.internet import defer
 
-from glyphs.location import Location
+from glyphs.location import Location, Comment, Rating
 
 
 ENV = Environment(loader=FileSystemLoader('public'))
@@ -49,6 +49,31 @@ class Server(object):
         """
         return [loc.toJSType() for loc in Location.objects()]
 
+    @app.route('/api/v1/location/<string:id>/comment', methods=['POST'])
+    @jsonAPI
+    def addComment(self, request, id):
+        """
+        """
+        data = request.payload['comment']
+        c = Comment(**data)
+        loc = Location.objects(id=id).first()
+        loc.comments.append(c)
+        loc.save()
+        return {'status': 'ok'}
+
+    @app.route('/api/v1/location/<string:id>/feature', methods=['POST'])
+    @jsonAPI
+    def addFeature(self, request, id):
+        """
+        """
+        import pdb; pdb.set_trace()
+        data = request.payload['feature']
+        c = Comment(**data)
+        loc = Location.objects(id=id).first()
+        loc.comments.append(c)
+        loc.save()
+        return {'status': 'ok'}
+
     @app.route('/api/v1/location/<string:id>')
     @jsonAPI
     def getLocation(self, request, id):
@@ -62,6 +87,10 @@ class Server(object):
         """
         """
         data = request.payload['location']
+        features = data.pop('feature_set', None)
         loc = Location(**data)
+        for f in features:
+            loc.feature_set[f] = Rating(upvotes=1)
+        loc.feature_set.save()
         loc.save()
         return {'status': 'ok'}
