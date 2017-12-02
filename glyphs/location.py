@@ -60,7 +60,7 @@ class Location(Document):
     """
     name = fields.StringField()
     description = fields.StringField()
-    address = fieds.StringField()
+    address = fields.StringField()
     lat = fields.StringField()
     lng = fields.StringField()
     submitted_by = fields.StringField()
